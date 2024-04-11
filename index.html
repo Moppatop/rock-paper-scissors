@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        function getComputerChoice() {
+            let num = Math.floor(Math.random()*3);
+            if (num === 0){
+                return "rock";
+            } else if (num === 1) {
+                return "paper";
+            } else if (num === 2){
+                return "scissors";
+            }
+        }
 
+        function calcWinner(playerSelection, computerSelection) {
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+            /*
+                0. computer win
+                1. player win
+                2. tie
+            */
+            if (playerSelection === computerSelection) { return 2; }
+
+            switch (playerSelection) {
+                case "rock":
+                    if (computerSelection === "paper")      { return 0; }
+                    if (computerSelection === "scissors")   { return 1; }
+                case "paper": 
+                    if (computerSelection === "rock")       { return 1; }
+                    if (computerSelection === "scissors")   { return 0; }
+                case "scissors":
+                    if (computerSelection === "rock")       { return 0; }
+                    if (computerSelection === "paper")      { return 1; }
+            }       
+
+
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+
+            switch (calcWinner(playerSelection, computerSelection)) {
+                case 0: 
+                    console.log(`You lose, ${computerSelection} beats ${playerSelection}!`);
+                    return 0;
+                case 1:
+                    console.log(`You win, ${playerSelection} beats ${computerSelection}!`);
+                    return 1;
+                case 2:
+                    console.log(`The round is a tie!`);
+                    return 2;
+            } 
+        }
+
+        let playerChoice = prompt("What do you choose to play:");
+        let computerChoice = getComputerChoice();
+
+        playRound(playerChoice, computerChoice);
+    </script>
+</body>
+</html>
